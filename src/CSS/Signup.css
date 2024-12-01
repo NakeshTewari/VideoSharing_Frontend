@@ -1,0 +1,156 @@
+/* General Styling */
+.signup-page {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f7fa;
+}
+
+.signup-container {
+  display: flex;
+  width: 900px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Section - Signup Form */
+.signup-form-section {
+  flex: 1;
+  padding: 3rem;
+}
+
+.signup-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.signup-subtitle {
+  font-size: 16px;
+  color: gray;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a7b6f;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.signup-button:hover {
+  background-color: #3e6b5d;
+}
+
+.signup-alt-text {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.signup-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.social-button.facebook i {
+  color: #3b5998;
+}
+
+.social-button.twitter i {
+  color: #1da1f2;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: gray;
+}
+
+.login-link a {
+  color: #4a7b6f;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Right Section - Info Section */
+.signup-info-section {
+  flex: 1;
+  background-color: #809b8c;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-content {
+  text-align: center;
+  color: white;
+}
+
+.info-logo img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1.5rem;
+}
+
+.info-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.info-subtitle {
+  font-size: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.info-signin-button {
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.info-signin-button:hover {
+  background-color: white;
+  color: #809b8c;
+}

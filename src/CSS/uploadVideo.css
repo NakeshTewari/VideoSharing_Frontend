@@ -1,0 +1,97 @@
+.Home {
+  display: flex;
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #222;
+  padding: 20px;
+  color: white;
+}
+
+.main-content {
+  width: 80%;
+  padding: 20px;
+}
+
+.channel-content {
+  background-color: #181818;
+  color: #ffffff;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #333;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #bbbbbb;
+}
+
+.tab.active {
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.content-body {
+  margin-top: 20px;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  color: #bbbbbb;
+  cursor: pointer;
+}
+
+.filter i {
+  margin-right: 8px;
+}
+
+.content-empty {
+  text-align: center;
+  padding: 50px 0;
+  background-color: #282828;
+  border-radius: 10px;
+}
+
+.empty-image {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.upload-button {
+  padding: 10px 20px;
+  background-color: #3ea6ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.upload-button:hover {
+  background-color: #2a8cd1;
+}

@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+  background-color: black;
+  color: white;
+}
+
+.flex {
+  display: flex;
+}
+
+.bg-black {
+  background-color: black;
+}
+
+.text-white {
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20%;
+  background-color: #1a202c;
+  padding: 16px;
+  height: 100vh;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.menu-item i {
+  margin-right: 12px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Main Content */
+.main-content {
+  width: 80%;
+  padding: 16px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.search-bar {
+  background-color: #2d3748;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  width: 50%;
+}
+
+.categories {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.category-btn {
+  background-color: #4a5568;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.video-grid {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.video {
+  margin: 10px;
+}
