@@ -15,7 +15,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UploadVideo from "./pages/UploadVideo";
 import Watch from "./pages/Watch";
-
+import Your_channel from "./pages/Your_channel";
 
 function App() {
   
@@ -30,6 +30,7 @@ function App() {
         <Route path="/Signup" element={<Signup />}></Route>
         <Route path="/Uploadvideo" element={<UploadVideo />}></Route>
         <Route path="/Watch/:id" element={<Watch />}></Route>
+        <Route path="/Your_channel" element={<Your_channel/>}></Route>
       </Routes>
     </BrowserRouter>
   );

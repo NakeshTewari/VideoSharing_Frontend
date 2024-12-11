@@ -28,11 +28,11 @@ const Watch = () => {
     const fetchVideo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/video/api/getVideo/${id}`
+          `https://videosharing-platform-backend.onrender.com/video/api/getVideo/${id}`
         );
 
         const allVideoResponse = await axios.get(
-          "http://localhost:4000/video/api/getAllVideos",
+          "https://videosharing-platform-backend.onrender.com/video/api/getAllVideos",
           {
             headers: {
               Authorization: `token ${accessToken}`,
@@ -41,7 +41,7 @@ const Watch = () => {
         );
 
         const currentUserResponse = await axios.get(
-          "http://localhost:4000/userauth/api/currentUser",
+          "https://videosharing-platform-backend.onrender.com/userauth/api/currentUser",
           {
             headers: {
               Authorization: `token ${accessToken}`,
@@ -69,7 +69,7 @@ const Watch = () => {
 
   useEffect(()=>{
    
-    const socketIo = io("http://localhost:4000", {
+    const socketIo = io("https://videosharing-platform-backend.onrender.com", {
       transports: ["websocket", "polling"], // Ensure fallback options
       withCredentials: true, // Allow cross-origin credentials
     });

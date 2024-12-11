@@ -32,7 +32,7 @@ export default function UploadVideo() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/video/api/UploadVideo",
+        "https://videosharing-platform-backend.onrender.com/video/api/UploadVideo",
         formData,
         {
           headers: {
@@ -141,7 +141,7 @@ export default function UploadVideo() {
             <div className="tab">Promotions</div>
           </div>
 
-          <div className="content-body">
+          <div className4="content-body">
             <div className="filter-section">
               <div className="filter">
                 <i className="fas fa-filter"></i> Filter
@@ -149,12 +149,22 @@ export default function UploadVideo() {
             </div>
 
             <div className="content-empty">
-              <img
+              {/* <img
                 src="https://via.placeholder.com/200x200" // Placeholder image
                 alt="No content available"
                 className="empty-image"
-              />
-              <p>No content available</p>
+              /> */}
+
+{thumbnail && (
+  <div>
+    <h4>Thumbnail Preview:</h4>
+    <img
+      src={URL.createObjectURL(thumbnail)}
+      alt="Thumbnail Preview"
+      style={{ width: "200px", height: "auto", marginTop: "10px" }}
+    />
+  </div>
+)}
               <form
                 onSubmit={(e) => handleFileUpload(e)}
                 className="upload-form"

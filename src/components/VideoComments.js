@@ -20,9 +20,10 @@ const VideoComments = ({video,currentUser,socket}) => {
         videoId:video._id,
         userId: currentUser._id,
         content: comment,
+        fullName: currentUser.fullName,
       })
 
-      console.log(video, currentUser, socket);
+      console.log(video, currentUser.fullName, socket);
      }
    
     setComment("");
@@ -49,7 +50,7 @@ const VideoComments = ({video,currentUser,socket}) => {
     e.preventDefault();
 
     const response = await axios.post(
-      "http://localhost:4000/subscription/api/subscription",
+      "https://videosharing-platform-backend.onrender.com/subscription/api/subscription",
       {
         channel: video.owner,
       },
@@ -103,7 +104,7 @@ const VideoComments = ({video,currentUser,socket}) => {
               </div>
             </div>
             <div class="comments-section">
-              <div class="comments-header">33 Comments</div>
+              <div class="comments-header">{commentArray.length} Comments</div>
               <div class="add-comment">
                 <div class="avatar">N</div>
                 <form action="" onSubmit={handleComment}>
@@ -123,7 +124,7 @@ const VideoComments = ({video,currentUser,socket}) => {
                       <div class="avatar">S</div>
                       <div class="comment-content">
                         <div class="comment-info">
-                          {msg.userId} {msg.timeStamp}
+                          {msg.fullName} {msg.timeStamp}
                         </div>
                         <div class="comment-text">{msg.content}</div>
                         <div class="comment-actions">

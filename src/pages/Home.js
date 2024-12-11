@@ -15,7 +15,7 @@ export default function Home() {
       const fetchData = async () => {
         const accessToken = localStorage.getItem("accessToken");
         const response = await axios.get(
-          "http://localhost:4000/video/api/getAllVideos",
+          "https://videosharing-platform-backend.onrender.com/video/api/getAllVideos",
           {
             headers: {
               Authorization: `token ${accessToken}`,
@@ -64,7 +64,7 @@ export default function Home() {
             <div className="space-y-4">
               <div className="menu-item">
                 <i className="fas fa-user"></i>
-                <span>Your channel</span>
+                <span><Link to="/Your_channel">Your Channel</Link></span>
               </div>
               <div className="menu-item">
                 <i className="fas fa-history"></i>
