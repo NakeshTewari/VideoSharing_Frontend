@@ -3,12 +3,30 @@ import axios from 'axios';
 import { useEffect,useState } from 'react';
 import { io } from "socket.io-client";
 
-const VideoComments = ({video,currentUser,socket}) => {
+const VideoComments = ({video,currentUser,socket,ownerName, subscriberCount}) => {
   const [comment, setComment] = useState("");
   const [commentArray, setCommentArray] = useState([]);
+  const [oldCommentArray, setOldCommentArray]= useState([]);
 
   const accessToken = localStorage.getItem("accessToken");
   const username=localStorage.getItem("username");
+
+  const date=new Date(video.createdAt);
+  const formattedDate = date.toLocaleDateString('en-US'); 
+  const formattedTime = date.toLocaleTimeString('en-US')
+
+  useEffect(() => {
+    if (video) {
+      axios.post(`https://videosharing-platform-backend.onrender.com/comment/api/getComments`, {
+        videoId: video._id,
+      }).then((res) => {
+        if (res.data.msg) {
+          setCommentArray(res.data.msg); // Directly set the fetched comments
+        }
+      });
+    }
+  }, [video]);
+  
 
 
   async function handleComment(e) {
@@ -23,7 +41,15 @@ const VideoComments = ({video,currentUser,socket}) => {
         fullName: currentUser.fullName,
       })
 
-      console.log(video, currentUser.fullName, socket);
+      //making call for every new comment
+      //  axios.post("http://localhost:4000/comment/api/addComment",{
+      //   videoId:video._id,
+      //   userId: currentUser._id,
+      //   text: comment,
+      // }).then((res)=> console.log(JSON.stringify(res),".........................................."));
+     
+
+      // console.log(video, currentUser.fullName, socket);
      }
    
     setComment("");
@@ -66,41 +92,32 @@ const VideoComments = ({video,currentUser,socket}) => {
 
   return (
     <div class="container">
-            <h1>How are videos streamed live on Youtube ?</h1>
+            <h1>{video.title}</h1>
             <div class="video-info">
               <div class="avatar">V</div>
               <div class="channel-info">
-                <div class="channel-name">Nakesh Tewari</div>
-                <div class="subscribers">12M subscribers</div>
+                <div class="channel-name">{ownerName}</div>
+                <div class="subscribers">{subscriberCount} subscribers</div>
               </div>
               <button class="subscribe-button" onClick={handleSubscription}>
                 Subscribe
               </button>
             </div>
             <div class="video-details">
-              <div class="views">12K views 2 years ago</div>
+              <div class="views">Description</div>
               <div class="description">
-                Join the discord community to share more learnings on system
-                design and distributed systems:
+                {video.description}
               </div>
               <div class="discord-info">
                 <i class="fab fa-discord"></i>
-                <span>/ discord</span>
-                <span class="views-date">12,793 views • Jun 19, 2022</span>
+                <span>more</span>
+                <span class="views-date">12,793 views • {formattedDate}</span>
               </div>
             </div>
             <div class="video-actions">
-              <div class="action">
-                <i class="fas fa-thumbs-up"></i> 357
-              </div>
-              <div class="action">
-                <i class="fas fa-thumbs-down"></i>
-              </div>
+  
               <div class="action">
                 <i class="fas fa-share"></i> Share
-              </div>
-              <div class="action">
-                <i class="fas fa-ellipsis-h"></i>
               </div>
             </div>
             <div class="comments-section">
@@ -116,6 +133,8 @@ const VideoComments = ({video,currentUser,socket}) => {
                   <button type="submit">Send-&gt;</button>
                 </form>
               </div>
+              
+             
 
               <div>
                 {commentArray.map((msg, index) => {
@@ -126,9 +145,9 @@ const VideoComments = ({video,currentUser,socket}) => {
                         <div class="comment-info">
                           {msg.fullName} {msg.timeStamp}
                         </div>
-                        <div class="comment-text">{msg.content}</div>
+                        <div class="comment-text">{msg.content} {msg.text}</div>
                         <div class="comment-actions">
-                          <i class="fas fa-thumbs-up"></i> 0
+                          <i class="fas fa-thumbs-up"></i> Likes 0
                           <i class="fas fa-thumbs-down"></i>
                           <span>Reply</span>
                         </div>

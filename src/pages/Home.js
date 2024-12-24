@@ -32,10 +32,8 @@ export default function Home() {
     }
   }, []);
 
+  const username = localStorage.getItem("username");
 
-
-  const username= localStorage.getItem("username");
-  
   return (
     <div className="Home">
       <div className="flex">
@@ -64,7 +62,9 @@ export default function Home() {
             <div className="space-y-4">
               <div className="menu-item">
                 <i className="fas fa-user"></i>
-                <span><Link to="/Your_channel">Your Channel</Link></span>
+                <span>
+                  <Link to="/Your_channel">Your Channel</Link>
+                </span>
               </div>
               <div className="menu-item">
                 <i className="fas fa-history"></i>
@@ -77,7 +77,7 @@ export default function Home() {
               <div className="menu-item">
                 <i className="fas fa-video"></i>
                 <span>
-                  <Link to="/Uploadvideo">Your videos</Link>
+                  <Link to="/Uploadvideo">Upload videos</Link>
                 </span>
               </div>
               <div className="menu-item">

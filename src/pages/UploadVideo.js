@@ -100,7 +100,7 @@ export default function UploadVideo() {
               </div>
               <div className="menu-item">
                 <i className="fas fa-video"></i>
-                <span>Your videos</span>
+                <span>Upload videos</span>
               </div>
               <div className="menu-item">
                 <i className="fas fa-clock"></i>

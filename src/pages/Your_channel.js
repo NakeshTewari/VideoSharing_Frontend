@@ -60,7 +60,7 @@ const Your_channel = () => {
           </div>
           <div style={styles.analyticsContent}>
             <div style={styles.metrics}>
-              {['Views', 'Watch time (hours)', 'Subscribers'].map((item, index) => (
+              {["Views", "Watch time (hours)", "Subscribers"].map((item, index) => (
                 <div style={styles.metric} key={index}>
                   <div style={styles.metricLabel}>{item}</div>
                   <div style={styles.metricValue}>—</div>
@@ -101,12 +101,12 @@ const styles = {
     container: {
       display: 'flex',
       height: '100vh',
-      backgroundColor: '#1F2937', // Gray-900
+      backgroundColor: '#121212', // Dark Grayish Black
       color: '#FFFFFF', // White
     },
     sidebar: {
-      width: '256px', // 64 (Tailwind w-64)
-      backgroundColor: '#374151', // Gray-800
+      width: '256px',
+      backgroundColor: '#1E1E1E', // Blackish Gray
       padding: '16px',
     },
     profile: {
@@ -115,7 +115,7 @@ const styles = {
       marginBottom: '24px',
     },
     avatar: {
-      backgroundColor: '#4FD1C5', // Teal-500
+      backgroundColor: '#2C2C2C', // Darker Gray
       borderRadius: '50%',
       width: '48px',
       height: '48px',
@@ -124,16 +124,19 @@ const styles = {
       justifyContent: 'center',
       fontSize: '24px',
       fontWeight: 'bold',
+      color: '#FFFFFF', // White
     },
     profileInfo: {
       marginLeft: '16px',
     },
     channelText: {
       fontSize: '14px',
+      color: '#BBBBBB', // Light Gray
     },
     channelName: {
       fontSize: '18px',
       fontWeight: 'bold',
+      color: '#FFFFFF', // White
     },
     navList: {
       listStyleType: 'none',
@@ -145,12 +148,9 @@ const styles = {
     navLink: {
       display: 'flex',
       alignItems: 'center',
-      color: '#9CA3AF', // Gray-400
+      color: '#FFFFFF', // White
       textDecoration: 'none',
       transition: 'color 0.2s',
-    },
-    navLinkHover: {
-      color: '#FFFFFF', // White
     },
     icon: {
       marginRight: '8px',
@@ -168,14 +168,15 @@ const styles = {
     title: {
       fontSize: '24px',
       fontWeight: 'bold',
+      color: '#FFFFFF', // White
     },
     headerButtons: {
       display: 'flex',
       alignItems: 'center',
     },
     button: {
-      backgroundColor: '#4B5563', // Gray-700
-      color: '#9CA3AF', // Gray-400
+      backgroundColor: '#1E1E1E', // Blackish Gray
+      color: '#FFFFFF', // White
       padding: '8px 16px',
       borderRadius: '8px',
       border: 'none',
@@ -190,15 +191,15 @@ const styles = {
       right: '0',
       marginTop: '8px',
       width: '192px',
-      backgroundColor: '#374151', // Gray-800
+      backgroundColor: '#2C2C2C', // Darker Gray
       borderRadius: '8px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-      display: 'none', // Initially hidden; you can add logic to show it
+      display: 'none',
     },
     menuItem: {
       display: 'block',
       padding: '8px 16px',
-      color: '#9CA3AF', // Gray-400
+      color: '#FFFFFF', // White
       textDecoration: 'none',
       transition: 'color 0.2s',
     },
@@ -206,15 +207,15 @@ const styles = {
       marginBottom: '24px',
     },
     searchInput: {
-      backgroundColor: '#4B5563', // Gray-700
-      color: '#9CA3AF', // Gray-400
+      backgroundColor: '#1E1E1E', // Blackish Gray
+      color: '#FFFFFF', // White
       padding: '8px 16px',
       borderRadius: '8px',
       width: '100%',
       border: 'none',
     },
     analyticsCard: {
-      backgroundColor: '#374151', // Gray-800
+      backgroundColor: '#2C2C2C', // Darker Gray
       padding: '24px',
       borderRadius: '8px',
     },
@@ -227,9 +228,10 @@ const styles = {
     analyticsTitle: {
       fontSize: '20px',
       fontWeight: 'bold',
+      color: '#FFFFFF', // White
     },
     dateText: {
-      color: '#9CA3AF', // Gray-400
+      color: '#BBBBBB', // Light Gray
     },
     analyticsContent: {
       display: 'flex',
@@ -242,37 +244,40 @@ const styles = {
       marginBottom: '16px',
     },
     metricLabel: {
-      color: '#9CA3AF', // Gray-400
+      color: '#BBBBBB', // Light Gray
     },
     metricValue: {
       fontSize: '32px',
+      color: '#FFFFFF', // White
     },
     graphContainer: {
-      backgroundColor: '#4B5563', // Gray-700
+      backgroundColor: '#1E1E1E', // Blackish Gray
       padding: '16px',
-    borderRadius: '8px',
-    marginLeft: '16px',
-    flex: 1,
-  },realtimeContainer: {
-    width: '256px',
-    marginLeft: '16px',
-  },
-  realtimeCard: {
-    backgroundColor: '#4B5563', // Gray-700
-    padding: '16px',
-    borderRadius: '8px',
-    marginBottom: '16px',
-  },
-  realtimeLabel: {
-    color: '#9CA3AF', // Gray-400
-    marginBottom: '8px',
-  },
-  realtimeStatus: {
-    color: '#9CA3AF', // Gray-400
-  },
-  realtimeValue: {
-    fontSize: '32px',
-    margin: '16px 0',
-  },
+      borderRadius: '8px',
+      marginLeft: '16px',
+      flex: 1,
+    },
+    realtimeContainer: {
+      width: '256px',
+      marginLeft: '16px',
+    },
+    realtimeCard: {
+      backgroundColor: '#2C2C2C', // Darker Gray
+      padding: '16px',
+      borderRadius: '8px',
+      marginBottom: '16px',
+    },
+    realtimeLabel: {
+      color: '#FFFFFF', // White
+      marginBottom: '8px',
+    },
+    realtimeStatus: {
+      color: '#BBBBBB', // Light Gray
+    },
+    realtimeValue: {
+      fontSize: '32px',
+      margin: '16px 0',
+      color: '#FFFFFF', // White
+    },
 };
 export default Your_channel;

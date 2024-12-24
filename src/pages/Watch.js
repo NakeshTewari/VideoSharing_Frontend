@@ -14,8 +14,11 @@ const Watch = () => {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [allVideos, setAllVideos] = useState(null);
+  const [allVideos, setAllVideos] = useState([]);
   const [socket,setSocket]= useState(null);
+  const [ownerName, setOwnerName] = useState("");
+  const [subscriberCount, setSubscriberCount] = useState(0);
+  
   
   const [currentUser, setCurrentUser] = useState();
 
@@ -49,12 +52,18 @@ const Watch = () => {
           }
         );
 
+
         setCurrentUser(currentUserResponse.data);
 
-        setVideo(response.data);
+        setVideo(response.data.video);
+        
+        
+        setOwnerName(response.data.ownerName);
+        setSubscriberCount(response.data.subscriberCount);
+        
         setAllVideos(allVideoResponse.data);
 
-        console.log(response.data, currentUserResponse.data);
+        console.log("response.data.video"+JSON.stringify(response.data.video), JSON.stringify(currentUserResponse.data));
       } catch (error) {
         console.log(error);
       } finally {
@@ -93,7 +102,7 @@ const Watch = () => {
   
 
   if (loading) return <div>Loading......</div>;
-  // console.log(video);
+  console.log(video.videoFile);
   // console.log(allVideos);
 
   return (
@@ -124,36 +133,30 @@ const Watch = () => {
           </div>
           <div className="space-y-4">
             <div className="video-grid">
-              {allVideos &&
-                allVideos.map((video) => (
-                  <div key={video._id} className="video">
-                    {/* Video Items */}
-                    <div className="video-item">
-                      <Link to={`/Watch/${video._id}`}>
-                        <video
-                          controls
-                          width="300"
-                          height="200"
-                          poster={video.thumbnail}
-                          preload="none"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          {/* <img
-                        alt="Video thumbnail"
-                        height="200"
-                        src={video.thumbnail}
-                        width="300"
-                      /> */}
-                          <source src={video.videoFile} type="video/mp4" />
-                        </video>
-                      </Link>
-                      <div className="video-details">
-                        <h3>{video.title}</h3>
-                        <p>{video.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {Array.isArray(allVideos) && allVideos.map((video) => (
+  <div key={video._id} className="video">
+    {/* Video Items */}
+    <div className="video-item">
+      <Link to={`/Watch/${video._id}`}>
+        <video
+          controls
+          width="300"
+          height="200"
+          poster={video.thumbnail}
+          preload="none"
+          onClick={(e) => e.preventDefault()}
+        >
+          <source src={video.videoFile} type="video/mp4" />
+        </video>
+      </Link>
+      <div className="video-details">
+        <h3>{video.title}</h3>
+        <p>{video.description}</p>
+      </div>
+    </div>
+  </div>
+))}
+
             </div>
           </div>
         </aside>
@@ -162,7 +165,7 @@ const Watch = () => {
         <main className="flex-1 p-4">
           <div className="video-section">
             <ReactPlayer
-              url={video.videoFile} // The video file URL
+              url={video?.videoFile} // The video file URL
               controls={true} // Show video controls
               playing={true} // Autoplay the video
               width="90%" // Set the width to 100% (responsive)
@@ -177,7 +180,7 @@ const Watch = () => {
           
           {/* Comments Section */}
          {video && currentUser && socket ? (
-          <VideoComments video={video} currentUser={currentUser} socket={socket}/>
+          <VideoComments video={video} ownerName={ownerName} subscriberCount={subscriberCount} currentUser={currentUser} socket={socket}/>
            ) : null}
 
           
