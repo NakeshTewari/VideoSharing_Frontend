@@ -10,12 +10,16 @@ export default function UploadVideo() {
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [file, setFile] = useState(null);
+  const [loadingState,setLoadingState]=useState(false);
 
   const refreshToken = localStorage.getItem("refreshToken");
 
   const Duration = useState(0);
+  
 
   async function handleFileUpload(e) {
+    setLoadingState(true);
+
     e.preventDefault();
 
     const formData = new FormData();
@@ -32,7 +36,7 @@ export default function UploadVideo() {
 
     try {
       const response = await axios.post(
-        "https://videosharing-platform-backend.onrender.com/video/api/UploadVideo",
+        "http://localhost:4000/video/api/UploadVideo",
         formData,
         {
           headers: {
@@ -47,6 +51,7 @@ export default function UploadVideo() {
         setDescription("");
         setThumbnail(null);
         setFile(null);
+        setLoadingState(false);
       }
 
       console.log(response);
@@ -166,7 +171,7 @@ export default function UploadVideo() {
   </div>
 )}
               <form
-                onSubmit={(e) => handleFileUpload(e)}
+                onSubmit={handleFileUpload}
                 className="upload-form"
               >
                 <div>
@@ -214,6 +219,7 @@ export default function UploadVideo() {
                   Upload Video
                 </button>
               </form>
+              <div >{loadingState? <h3>Uploading video!</h3>: <h2></h2>}</div>
             </div>
           </div>
         </div>

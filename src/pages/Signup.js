@@ -54,7 +54,7 @@ export default function Signup() {
 
       // Send data to the backend
       const response = await axios.post(
-        "https://videosharing-platform.onrender.com/userauth/api/register",
+        "http://localhost:4000/userauth/api/register",
         data,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

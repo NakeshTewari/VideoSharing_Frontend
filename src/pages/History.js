@@ -4,26 +4,20 @@ import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
-export default function Home() {
-  const [allVideos, setAllVideos] = useState(null);
+export default function History() {
+  const [allHistoryVideos, setallHistoryVideos] = useState(null);
   const [searchVideo, setSearchVideo] = useState(null);
-  const [allSubscribedChannels, setAllSubscribedChannels] = useState([]);
-  
+  const [allSubscribedChannels, setAllSubscribedChannels] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem("accessToken");
-
-        // Fetch all videos
-        const videoResponse = await axios.get(
-          "http://localhost:4000/video/api/getAllVideos",
-          {
-            headers: {
-              Authorization: `token ${accessToken}`,
-            },
-          }
-        );
-        setAllVideos(videoResponse.data);
+        const history= JSON.parse(localStorage.getItem("watchHistory"));
+        console.log("History...",history);
+        
+        
+        setallHistoryVideos(history);
 
         // Fetch subscribed channels
         const subscribedResponse = await axios.get(
@@ -35,6 +29,8 @@ export default function Home() {
           }
         );
         setAllSubscribedChannels(subscribedResponse.data);
+        // console.log(subscribedResponse.data);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,8 +44,8 @@ export default function Home() {
   const handleSearch = (e) => {
     const value = e.target.value;
 
-    if (allVideos) {
-      const query = allVideos.filter((video) =>
+    if (allHistoryVideos) {
+      const query = allHistoryVideos.filter((video) =>
         video.title.toLowerCase().includes(value.toLowerCase())
       );
       setSearchVideo(query);
@@ -85,7 +81,7 @@ export default function Home() {
               <div className="menu-item">
                 <i className="fas fa-user"></i>
                 <span>
-                  Your Channel
+                  <Link to="/Your_channel">Your Channel</Link>
                 </span>
               </div>
               <div className="menu-item">
@@ -106,9 +102,10 @@ export default function Home() {
                   <Link to="/Uploadvideo">Upload videos</Link>
                 </span>
               </div>
+             
               <div className="menu-item">
                 <i className="fas fa-thumbs-up"></i>
-                <Link to="/Likevideos"> <span>Liked videos</span></Link>
+                <span>Liked videos</span>
               </div>
             </div>
           </div>
@@ -117,7 +114,7 @@ export default function Home() {
             <br />
             <div>
             <ol>
-             {Array.isArray(allSubscribedChannels) &&
+             {allSubscribedChannels &&
                  allSubscribedChannels.map((channel) => (
                 <li key={channel._id} className="subscription-item">
                 <h3>{channel.subscribed_to_id.username}</h3>
@@ -156,7 +153,7 @@ export default function Home() {
 
                <div key={video._id} className="video">
                <div className="video-item">
-                 <Link to={`/Watch/${video._id}`}>
+                 <Link to={`/Watch/${video.id}`}>
                    <video
                      controls
                      width="300"
@@ -173,12 +170,12 @@ export default function Home() {
                </div>
              </div>
 
-            )):allVideos &&
-              allVideos.map((video) => (
+            )):allHistoryVideos &&
+              allHistoryVideos.map((video) => (
 
                 <div key={video._id} className="video">
                   <div className="video-item">
-                    <Link to={`/Watch/${video._id}`}>
+                    <Link to={`/Watch/${video.id}`}>
                       <video
                         controls
                         width="300"
@@ -204,4 +201,3 @@ export default function Home() {
     </div>
   );
 }
-

@@ -1,23 +1,28 @@
 .Home {
   display: flex;
+  flex-direction: column; /* Change to column for better stacking */
   height: 100vh;
 }
 
 .flex {
   display: flex;
   width: 100%;
+  flex: 1; /* Allow flexible height for content */
 }
 
 .sidebar {
-  width: 20%;
+  width: 250px; /* Fixed width */
   background-color: #222;
   padding: 20px;
   color: white;
+  height: 100vh; /* Full height */
+  overflow-y: auto; /* Scroll if content overflows */
 }
 
 .main-content {
-  width: 80%;
+  flex: 1; /* Take remaining space */
   padding: 20px;
+  overflow-y: auto; /* Allow scrolling for content */
 }
 
 .channel-content {
@@ -25,23 +30,33 @@
   color: #ffffff;
   padding: 20px;
   font-family: Arial, sans-serif;
+  border-radius: 8px; /* Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
 .title {
-  font-size: 24px;
+  font-size: 28px; /* Larger font for title */
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center; /* Center-align title */
 }
 
 .tabs {
   display: flex;
+  justify-content: space-between; /* Distribute tabs evenly */
   border-bottom: 1px solid #333;
+  margin-bottom: 10px; /* Add spacing below */
 }
 
 .tab {
   padding: 10px 20px;
   cursor: pointer;
   color: #bbbbbb;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab:hover {
+  color: #ffffff; /* Highlight on hover */
 }
 
 .tab.active {
@@ -55,7 +70,7 @@
 
 .filter-section {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between; /* Space filters apart */
   margin-bottom: 20px;
 }
 
@@ -64,6 +79,11 @@
   align-items: center;
   color: #bbbbbb;
   cursor: pointer;
+  transition: color 0.3s;
+}
+
+.filter:hover {
+  color: #ffffff; /* Highlight on hover */
 }
 
 .filter i {
@@ -75,6 +95,7 @@
   padding: 50px 0;
   background-color: #282828;
   border-radius: 10px;
+  margin-top: 20px; /* Add spacing from filters */
 }
 
 .empty-image {
@@ -90,8 +111,48 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 .upload-button:hover {
   background-color: #2a8cd1;
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .Home {
+    flex-direction: column; /* Stack sidebar and content */
+  }
+
+  .sidebar {
+    width: 100%; /* Sidebar spans full width */
+    height: auto; /* Adjust height */
+    padding: 15px;
+  }
+
+  .tabs {
+    flex-wrap: wrap; /* Allow tabs to wrap */
+    justify-content: center; /* Center tabs */
+  }
+
+  .main-content {
+    padding: 15px; /* Reduce padding */
+  }
+
+  .filter-section {
+    flex-wrap: wrap; /* Allow filters to wrap */
+    gap: 10px; /* Add gap between filters */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 22px; /* Smaller title font */
+  }
+
+  .upload-button {
+    font-size: 14px; /* Smaller button */
+    padding: 8px 16px;
+  }
+}
+

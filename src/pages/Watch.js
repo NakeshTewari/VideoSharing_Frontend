@@ -31,11 +31,11 @@ const Watch = () => {
     const fetchVideo = async () => {
       try {
         const response = await axios.get(
-          `https://videosharing-platform-backend.onrender.com/video/api/getVideo/${id}`
+          `http://localhost:4000/video/api/getVideo/${id}`
         );
 
         const allVideoResponse = await axios.get(
-          "https://videosharing-platform-backend.onrender.com/video/api/getAllVideos",
+          "http://localhost:4000/video/api/getAllVideos",
           {
             headers: {
               Authorization: `token ${accessToken}`,
@@ -44,7 +44,7 @@ const Watch = () => {
         );
 
         const currentUserResponse = await axios.get(
-          "https://videosharing-platform-backend.onrender.com/userauth/api/currentUser",
+          "http://localhost:4000/userauth/api/currentUser",
           {
             headers: {
               Authorization: `token ${accessToken}`,
@@ -56,6 +56,7 @@ const Watch = () => {
         setCurrentUser(currentUserResponse.data);
 
         setVideo(response.data.video);
+        console.log(response.data.video);
         
         
         setOwnerName(response.data.ownerName);
@@ -63,7 +64,8 @@ const Watch = () => {
         
         setAllVideos(allVideoResponse.data);
 
-        console.log("response.data.video"+JSON.stringify(response.data.video), JSON.stringify(currentUserResponse.data));
+        console.log(allVideoResponse.data);
+       
       } catch (error) {
         console.log(error);
       } finally {
@@ -72,13 +74,36 @@ const Watch = () => {
     };
 
     fetchVideo();
+
+    if(video){
+
+      let history=JSON.parse(localStorage.getItem("watchHistory"))|| [];
+   
+      const exists= history.find((item)=> item.id === video._id);
+  
+      if(!exists){
+        history.push({
+          id:video._id,
+          title:video.title,
+          thumbnail:video.thumbnail,
+          videoFile:video.videoFile,
+          description:video.description,
+          watchAt:new Date().toISOString(),
+        })
+  
+        localStorage.setItem("watchHistory", JSON.stringify(history))
+      }
+
+    }
+    
+  
     
   }, [id]);
 
 
   useEffect(()=>{
    
-    const socketIo = io("https://videosharing-platform-backend.onrender.com", {
+    const socketIo = io("http://localhost:4000", {
       transports: ["websocket", "polling"], // Ensure fallback options
       withCredentials: true, // Allow cross-origin credentials
     });
@@ -110,7 +135,7 @@ const Watch = () => {
       {/* Header */}
       <header className="header">
         <div className="flex items-center space-x-4">
-          <FaYoutube className="text-red-600" style={{ fontSize: "2rem" }} />
+          <Link to="/"><FaYoutube className="text-red-600" style={{ fontSize: "4rem" }} /></Link>
           <input className="" placeholder="Search" type="text" />
           <button>
             <FaSearch />
@@ -125,19 +150,16 @@ const Watch = () => {
       {/* Main Content */}
       <div className="flex flex-1">
         {/* Sidebar */}
+      
         <aside className="video-sidebar space-y-4">
-          <div className="space-y-2">
-            <h2 className="text-lg">From your search</h2>
-            <h2 className="text-lg">From the series</h2>
-            <h2 className="text-lg">From the web</h2>
-          </div>
+        
           <div className="space-y-4">
             <div className="video-grid">
-            {Array.isArray(allVideos) && allVideos.map((video) => (
+            {Array.isArray(allVideos) && allVideos.slice(0,5).map((video) => (
   <div key={video._id} className="video">
     {/* Video Items */}
     <div className="video-item">
-      <Link to={`/Watch/${video._id}`}>
+      <Link to="/Watch">
         <video
           controls
           width="300"
@@ -150,8 +172,10 @@ const Watch = () => {
         </video>
       </Link>
       <div className="video-details">
+        <Link to={`/Watch/${video._id}`}>
         <h3>{video.title}</h3>
         <p>{video.description}</p>
+        </Link>
       </div>
     </div>
   </div>

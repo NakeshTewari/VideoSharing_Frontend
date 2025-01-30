@@ -16,11 +16,11 @@ import Signup from "./pages/Signup";
 import UploadVideo from "./pages/UploadVideo";
 import Watch from "./pages/Watch";
 import Your_channel from "./pages/Your_channel";
+import Subscription from "./pages/Subscriptions";
+import Playlist from "./pages/Playlist";
+import History from "./pages/History";
 
 function App() {
-  
-
-  
   
   return (
     <BrowserRouter>
@@ -31,6 +31,10 @@ function App() {
         <Route path="/Uploadvideo" element={<UploadVideo />}></Route>
         <Route path="/Watch/:id" element={<Watch />}></Route>
         <Route path="/Your_channel" element={<Your_channel/>}></Route>
+        <Route path="/Subscriptions" element={<Subscription/>}></Route>
+        <Route path="/Playlists" element={<Playlist/>}></Route>
+        <Route path="/History" element={<History/>}></Route>
+        
       </Routes>
     </BrowserRouter>
   );

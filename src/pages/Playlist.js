@@ -3,29 +3,35 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+export default function Playlist() {
   const [allVideos, setAllVideos] = useState(null);
   const [searchVideo, setSearchVideo] = useState(null);
   const [allSubscribedChannels, setAllSubscribedChannels] = useState([]);
+  const [isCreated,setIsCreated]= useState(false);
+  const [allPlaylistVideo,setAllPlaylistVideo]=useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem("accessToken");
 
-        // Fetch all videos
-        const videoResponse = await axios.get(
-          "http://localhost:4000/video/api/getAllVideos",
+        // Fetch subscribed channels
+        const playlistVideos = await axios.get(
+          "http://localhost:4000/playlist/api/fetchPlaylist",
           {
             headers: {
               Authorization: `token ${accessToken}`,
             },
           }
         );
-        setAllVideos(videoResponse.data);
+        setAllPlaylistVideo(playlistVideos.data);
+        console.log(playlistVideos.data);
+        
+        if(playlistVideos) setIsCreated(true);
 
-        // Fetch subscribed channels
+
         const subscribedResponse = await axios.get(
           "http://localhost:4000/subscription/api/allSubscribedChannels",
           {
@@ -35,6 +41,8 @@ export default function Home() {
           }
         );
         setAllSubscribedChannels(subscribedResponse.data);
+
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -53,8 +61,75 @@ export default function Home() {
         video.title.toLowerCase().includes(value.toLowerCase())
       );
       setSearchVideo(query);
+    } 
+  };
+
+
+  const [formData, setFormData] = useState({
+    playlistName: "",
+    description: "",
+  });
+
+  const [avatar, setAvatar] = useState(null);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+ 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+  
+    const { playlistName, description } = formData;
+    if (!playlistName || !description) {
+      setError("All fields are required.");
+      return;
+    }
+  
+    if (!avatar) {
+      setError("Please upload an avatar.");
+      return;
+    }
+  
+    try {
+      // FormData object for sending data and file
+      const data = new FormData();
+      data.append("playlistName", playlistName);
+      data.append("description", description);
+      data.append("avatar", avatar); // Ensure avatar is appended
+  
+      const accessToken = localStorage.getItem("accessToken");
+  
+      // Send data to the backend
+      const response = await axios.post(
+        "http://localhost:4000/playlist/api/createPlaylist",
+        data,
+        {
+          headers: {
+            Authorization: `token ${accessToken}`,
+          },
+        }
+      );
+      console.log(response.status);
+      
+  
+      if (response.status === 200) {
+        setSuccess("Creation successful! Redirecting to playlist...");
+          setIsCreated(true);
+      } else {
+        setError("An error occurred. Please try again.");
+      }
+    } catch (err) {
+      setError(err.response?.data?.msg || "An error occurred. Please try again.");
     }
   };
+  
 
   return (
     <div className="Home">
@@ -85,7 +160,7 @@ export default function Home() {
               <div className="menu-item">
                 <i className="fas fa-user"></i>
                 <span>
-                  Your Channel
+                  <Link to="/Your_channel">Your Channel</Link>
                 </span>
               </div>
               <div className="menu-item">
@@ -108,7 +183,7 @@ export default function Home() {
               </div>
               <div className="menu-item">
                 <i className="fas fa-thumbs-up"></i>
-                <Link to="/Likevideos"> <span>Liked videos</span></Link>
+                <span>Liked videos</span>
               </div>
             </div>
           </div>
@@ -150,8 +225,84 @@ export default function Home() {
             </Stack>
           </div>
 
-
           <div className="video-grid">
+          {isCreated ? (
+                allPlaylistVideo &&
+                allPlaylistVideo.map((video) => (
+  
+                  <div key={video._id} className="video">
+                    <div className="video-item">
+                      <Link to={`/Watch/${video._id}`}>
+                        <video
+                          controls
+                          width="300"
+                          height="200"
+                          poster={video.thumbnail}
+                        >
+                         
+                          <source src={video.videoFile} type="video/mp4" />
+                        </video>
+                      </Link>
+                      <div className="video-details">
+                        <h3>{video.title}</h3>
+                        <p>{video.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+) : (
+  <div className="signup-page">
+      <div className="signup-container">
+        <div className="signup-form-section">
+          <h1 className="signup-title">Hello!</h1>
+          <p className="signup-subtitle">Please Create Playlist to continue</p>
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <div className="input-group">
+              <input
+                type="text"
+                name="playlistName"
+                placeholder="Playlist Name"
+                className="input-field"
+                value={formData.playlistName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-group">
+              <input
+                type="text"
+                name="description"
+                placeholder="Description"
+                className="input-field"
+                value={formData.description}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-group">
+              <label className="file-upload-label">Upload Avatar</label>
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                className="file-upload-input"
+                onChange={(e) => setAvatar(e.target.files[0])} 
+              />
+            </div>
+            <button type="submit" className="signup-button">
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+)}
+</div>
+
+ 
+         
+
+          {/* <div className="video-grid">
             { searchVideo? searchVideo.map((video)=>(
 
                <div key={video._id} className="video">
@@ -196,7 +347,7 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-          </div>
+          </div> */}
 
           {/* Add more video items here */}
         </div>

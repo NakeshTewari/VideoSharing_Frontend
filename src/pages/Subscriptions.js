@@ -4,11 +4,11 @@ import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
-export default function Home() {
-  const [allVideos, setAllVideos] = useState(null);
+export default function Subscription() {
+  const [allSubscribedVideos, setallSubscribedVideos] = useState(null);
   const [searchVideo, setSearchVideo] = useState(null);
-  const [allSubscribedChannels, setAllSubscribedChannels] = useState([]);
-  
+  const [allSubscribedChannels, setAllSubscribedChannels] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -16,14 +16,16 @@ export default function Home() {
 
         // Fetch all videos
         const videoResponse = await axios.get(
-          "http://localhost:4000/video/api/getAllVideos",
+          "http://localhost:4000/subscription/api/getSubscribedVideos",
           {
             headers: {
               Authorization: `token ${accessToken}`,
             },
           }
         );
-        setAllVideos(videoResponse.data);
+        console.log(videoResponse.data);
+        
+        setallSubscribedVideos(videoResponse.data);
 
         // Fetch subscribed channels
         const subscribedResponse = await axios.get(
@@ -35,6 +37,8 @@ export default function Home() {
           }
         );
         setAllSubscribedChannels(subscribedResponse.data);
+        // console.log(subscribedResponse.data);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,8 +52,8 @@ export default function Home() {
   const handleSearch = (e) => {
     const value = e.target.value;
 
-    if (allVideos) {
-      const query = allVideos.filter((video) =>
+    if (allSubscribedVideos) {
+      const query = allSubscribedVideos.filter((video) =>
         video.title.toLowerCase().includes(value.toLowerCase())
       );
       setSearchVideo(query);
@@ -85,7 +89,7 @@ export default function Home() {
               <div className="menu-item">
                 <i className="fas fa-user"></i>
                 <span>
-                  Your Channel
+                  <Link to="/Your_channel">Your Channel</Link>
                 </span>
               </div>
               <div className="menu-item">
@@ -107,8 +111,12 @@ export default function Home() {
                 </span>
               </div>
               <div className="menu-item">
+                <i className="fas fa-clock"></i>
+                <span>Watch later</span>
+              </div>
+              <div className="menu-item">
                 <i className="fas fa-thumbs-up"></i>
-                <Link to="/Likevideos"> <span>Liked videos</span></Link>
+                <span>Liked videos</span>
               </div>
             </div>
           </div>
@@ -117,7 +125,7 @@ export default function Home() {
             <br />
             <div>
             <ol>
-             {Array.isArray(allSubscribedChannels) &&
+             {allSubscribedChannels &&
                  allSubscribedChannels.map((channel) => (
                 <li key={channel._id} className="subscription-item">
                 <h3>{channel.subscribed_to_id.username}</h3>
@@ -173,8 +181,8 @@ export default function Home() {
                </div>
              </div>
 
-            )):allVideos &&
-              allVideos.map((video) => (
+            )):allSubscribedVideos &&
+              allSubscribedVideos.map((video) => (
 
                 <div key={video._id} className="video">
                   <div className="video-item">
@@ -204,4 +212,3 @@ export default function Home() {
     </div>
   );
 }
-
