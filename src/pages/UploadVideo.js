@@ -5,16 +5,46 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 export default function UploadVideo() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [file, setFile] = useState(null);
   const [loadingState,setLoadingState]=useState(false);
+  const [allSubscribedChannels, setAllSubscribedChannels] = useState(null);
 
   const refreshToken = localStorage.getItem("refreshToken");
+  const username = localStorage.getItem("username");
 
   const Duration = useState(0);
+
+ 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+
+        // Fetch subscribed channels
+        const subscribedResponse = await axios.get(
+          "http://localhost:4000/subscription/api/allSubscribedChannels",
+          {
+            headers: {
+              Authorization: `token ${accessToken}`,
+            },
+          }
+        );
+        setAllSubscribedChannels(subscribedResponse.data);
+        // console.log(subscribedResponse.data);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   
 
   async function handleFileUpload(e) {
@@ -33,6 +63,7 @@ export default function UploadVideo() {
     formData.append("views", 0);
 
     const accessToken = localStorage.getItem("accessToken");
+   
 
     try {
       const response = await axios.post(
@@ -67,84 +98,83 @@ export default function UploadVideo() {
     <div className="Home">
       <div className="flex">
         {/* Sidebar */}
-        <div className="sidebar">
-          <div className="flex items-center mb-6">
-            <i className="fab fa-youtube text-red-600 text-3xl"></i>
-            <span className="logo-text">YouTube</span>
-          </div>
-          <div className="space-y-4">
-            <div className="menu-item">
-              <i className="fas fa-home"></i>
-              <span>
-                <Link to="/">Home</Link>
-              </span>
-            </div>
-            <div className="menu-item">
-              <i className="fas fa-video"></i>
-              <span>Shorts</span>
-            </div>
-            <div className="menu-item">
-              <i className="fas fa-folder"></i>
-              <span>Subscriptions</span>
-            </div>
-          </div>
-          <div className="section mt-8">
-            <h2 className="section-title">You</h2>
-            <div className="space-y-4">
-              <div className="menu-item">
-                <i className="fas fa-user"></i>
-                <span>Your channel</span>
-              </div>
-              <div className="menu-item">
-                <i className="fas fa-history"></i>
-                <span>History</span>
-              </div>
-              <div className="menu-item">
-                <i className="fas fa-list"></i>
-                <span>Playlists</span>
-              </div>
-              <div className="menu-item">
-                <i className="fas fa-video"></i>
-                <span>Upload videos</span>
-              </div>
-              <div className="menu-item">
-                <i className="fas fa-clock"></i>
-                <span>Watch later</span>
-              </div>
-              <div className="menu-item">
-                <i className="fas fa-thumbs-up"></i>
-                <span>Liked videos</span>
-              </div>
-            </div>
-          </div>
-          <div className="section mt-8">
-            <h2 className="section-title">Subscriptions</h2>
-            <div className="space-y-4">
-              <div className="menu-item">
-                <i className="fas fa-user-circle"></i>
-                <span>GateWay Classes</span>
-              </div>
-              <div className="menu-item">
-                <i className="fas fa-user-circle"></i>
-                <span>Aditya Verma</span>
-              </div>
-            </div>
-          </div>
-        </div>
+         <div className="sidebar">
+                  <div className="flex items-center mb-6">
+                    <i className="fab fa-youtube text-red-600 text-3xl"></i>
+                    <h1>YouTube</h1>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="menu-item">
+                      <i className="fas fa-home"></i>
+                      <span>
+                        <Link to="/">Home</Link>
+                      </span>
+                    </div>
+                    <div className="menu-item">
+                      <i className="fas fa-folder"></i>
+                      <span>
+                        <Link to="/Subscriptions">Subscriptions</Link>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="section mt-8">
+                    <h2 className="section-title">{username}</h2>
+                    <div className="space-y-4">
+                      <div className="menu-item">
+                        <i className="fas fa-user"></i>
+                        <span>
+                          <Link to="/Your_channel">Your Channel</Link>
+                        </span>
+                      </div>
+                      <div className="menu-item">
+                        <i className="fas fa-history"></i>
+                        <span>
+                          <Link to="/history">History</Link>
+                        </span>
+                      </div>
+                      <div className="menu-item">
+                        <i className="fas fa-list"></i>
+                        <span>
+                          <Link to="/playlists">Playlists</Link>
+                        </span>
+                      </div>
+                      <div className="menu-item">
+                        <i className="fas fa-video"></i>
+                        <span>
+                          <Link to="/Uploadvideo">Upload videos</Link>
+                        </span>
+                      </div>
+                      <div className="menu-item">
+                        <i className="fas fa-clock"></i>
+                        <span>Watch later</span>
+                      </div>
+                      <div className="menu-item">
+                        <i className="fas fa-thumbs-up"></i>
+                        <span>Liked videos</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="section mt-8">
+                    <h2 className="section-title">Subscribed Channels</h2>
+                    <br />
+                    <div>
+                    <ol>
+                     {allSubscribedChannels &&
+                         allSubscribedChannels.map((channel) => (
+                        <li key={channel._id} className="subscription-item">
+                        <h3>{channel.subscribed_to_id.username}</h3>
+                     </li>
+                    ))}
+                  </ol>
+                    </div>
+                  </div>
+                </div>
 
         {/* Main Content */}
         <div className="channel-content">
-          <h1 className="title">Channel content</h1>
+          
 
-          <div className="tabs">
-            <div className="tab active">Videos</div>
-            <div className="tab">Shorts</div>
-            <div className="tab">Live</div>
-            <div className="tab">Posts</div>
-            <div className="tab">Playlists</div>
-            <div className="tab">Podcasts</div>
-            <div className="tab">Promotions</div>
-          </div>
+          
 
           <div className4="content-body">
             <div className="filter-section">
