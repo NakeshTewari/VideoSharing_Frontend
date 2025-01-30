@@ -108,7 +108,7 @@ export default function Home() {
               </div>
               <div className="menu-item">
                 <i className="fas fa-thumbs-up"></i>
-                <Link to="/Likevideos"> <span>Liked videos</span></Link>
+                 <span>Liked videos</span>
               </div>
             </div>
           </div>

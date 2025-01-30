@@ -89,7 +89,7 @@ export default function Subscription() {
               <div className="menu-item">
                 <i className="fas fa-user"></i>
                 <span>
-                  <Link to="/Your_channel">Your Channel</Link>
+                Your Channel
                 </span>
               </div>
               <div className="menu-item">
@@ -110,10 +110,7 @@ export default function Subscription() {
                   <Link to="/Uploadvideo">Upload videos</Link>
                 </span>
               </div>
-              <div className="menu-item">
-                <i className="fas fa-clock"></i>
-                <span>Watch later</span>
-              </div>
+              
               <div className="menu-item">
                 <i className="fas fa-thumbs-up"></i>
                 <span>Liked videos</span>
