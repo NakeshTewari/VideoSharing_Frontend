@@ -30,6 +30,8 @@ export default function Signup() {
     setError(null);
     setSuccess(null);
 
+    setIsSignup(true);
+
     const { fullName, username, email, password, confirmPassword } = formData;
     if (!fullName || !username || !email || !password || !confirmPassword) {
       setError("All fields are required.");
@@ -63,7 +65,7 @@ export default function Signup() {
       if (response.status === 200) {
         setSuccess("Registration successful! Redirecting to login...");
         setTimeout(() => navigate("/login"), 3000);
-        setIsSignup(true);
+        setIsSignup(false);
 
       } else {
         setError("An error occurred. Please try again.");
@@ -80,7 +82,7 @@ export default function Signup() {
           <h1 className="signup-title">Hello!</h1>
           
           <p className="signup-subtitle">Please signup to continue</p>
-          {isSignup? <p></p> :<p>signing...</p>}
+          {isSignup? <p>signing...</p>:<p></p> }
           {error && <div className="error-message">{error}</div>}
           {success && <div className="success-message">{success}</div>}
           <form onSubmit={handleSubmit} encType="multipart/form-data">
