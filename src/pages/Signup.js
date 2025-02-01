@@ -14,6 +14,7 @@ export default function Signup() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+  const [isSignup,setIsSignup]=useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,6 +63,8 @@ export default function Signup() {
       if (response.status === 200) {
         setSuccess("Registration successful! Redirecting to login...");
         setTimeout(() => navigate("/login"), 3000);
+        setIsSignup(true);
+
       } else {
         setError("An error occurred. Please try again.");
       }
@@ -75,7 +78,9 @@ export default function Signup() {
       <div className="signup-container">
         <div className="signup-form-section">
           <h1 className="signup-title">Hello!</h1>
+          
           <p className="signup-subtitle">Please signup to continue</p>
+          {isSignup? <p></p> :<p>signing...</p>}
           {error && <div className="error-message">{error}</div>}
           {success && <div className="success-message">{success}</div>}
           <form onSubmit={handleSubmit} encType="multipart/form-data">

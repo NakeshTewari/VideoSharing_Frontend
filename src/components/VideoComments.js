@@ -95,15 +95,25 @@ const VideoComments = ({video,currentUser,socket,ownerName, subscriberCount}) =>
   }
 
   async function handlePlaylist(){
-   const addtoPlaylist= await axios.post(`http://localhost:4000/playlist/api/addVideoToPlaylist`,{videoId: video._id},
-    {
-      headers: {
-        Authorization: `token ${accessToken}`,
-      },
-    }
-   )
-
-   if(addtoPlaylist.status===200) setIsAddedToPlaylist(true);
+   try {
+    const addtoPlaylist= await axios.post(`http://localhost:4000/playlist/api/addVideoToPlaylist`,{videoId: video._id},
+     {
+       headers: {
+         Authorization: `token ${accessToken}`,
+       },
+     }
+    )
+   // if(addtoPlaylist.status===404) alert("Create a playlist first");
+    if(addtoPlaylist.status===200) 
+     setIsAddedToPlaylist(true);
+  
+   } catch (error) {
+    if(error.status===404)
+      alert("Create a playlist first");
+   
+     
+   }
+    
   }
 
   return (

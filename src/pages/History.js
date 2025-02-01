@@ -81,7 +81,7 @@ export default function History() {
               <div className="menu-item">
                 <i className="fas fa-user"></i>
                 <span>
-                  <Link to="/Your_channel">Your Channel</Link>
+                  Your Channel
                 </span>
               </div>
               <div className="menu-item">
