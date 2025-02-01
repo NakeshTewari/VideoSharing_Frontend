@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { json, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function Login() {
@@ -71,19 +71,9 @@ export default function Login() {
             LOGIN
           </button>
         </form>
-        <div className="alternative-login">
-          <p>Or login with</p>
-          <div className="social-buttons">
-            <button className="social-button facebook">
-              <i className="fab fa-facebook-f"></i> Facebook
-            </button>
-            <button className="social-button google">
-              <i className="fab fa-google"></i> Google
-            </button>
-          </div>
-        </div>
+      
         <div className="signup-link">
-          Not a member? <a href="#">Sign up now</a>
+          Not a member? <a href="#"> <Link to="/Signup">Sign up now</Link></a>
         </div>
       </div>
     </div>
