@@ -13,6 +13,9 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const accessToken = localStorage.getItem("accessToken");
+        if(!accessToken){
+          alert("Signup or Login first.")
+        }
 
         // Fetch all videos
         const videoResponse = await axios.get(
