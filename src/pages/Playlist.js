@@ -26,7 +26,11 @@ export default function Playlist() {
             },
           }
         );
+        console.log(playlistVideos.status);
+        
+        if(playlistVideos.status===200)
         setAllPlaylistVideo(playlistVideos.data);
+
         console.log(playlistVideos.data);
         
         if(playlistVideos) setIsCreated(true);
