@@ -8,6 +8,7 @@ export default function Home() {
   const [allVideos, setAllVideos] = useState(null);
   const [searchVideo, setSearchVideo] = useState(null);
   const [allSubscribedChannels, setAllSubscribedChannels] = useState([]);
+  const [loadingVideos,setLoadingVideos]=useState(true);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +27,11 @@ export default function Home() {
             },
           }
         );
+        if(videoResponse)
+          setLoadingVideos(false);
+
         setAllVideos(videoResponse.data);
+
 
         // Fetch subscribed channels
         const subscribedResponse = await axios.get(
@@ -58,6 +63,8 @@ export default function Home() {
       setSearchVideo(query);
     }
   };
+
+  if(loadingVideos)return <div> <h2>Loading...</h2></div>
 
   return (
     <div className="Home">
@@ -153,7 +160,7 @@ export default function Home() {
             </Stack>
           </div>
 
-
+           {/* <div> {loadingVideos? <h2>Loading...</h2>: }</div> */}
           <div className="video-grid">
             { searchVideo? searchVideo.map((video)=>(
 
