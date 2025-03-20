@@ -28,6 +28,8 @@ const Watch = () => {
 
 
   useEffect(() => {
+    let isMounted = true; // Prevent state update if unmounted
+
     const fetchVideo = async () => {
       try {
         const response = await axios.get(
@@ -52,81 +54,65 @@ const Watch = () => {
           }
         );
 
+        if (isMounted) {
+          setCurrentUser(currentUserResponse.data);
+          setVideo(response.data.video);
+          setOwnerName(response.data.ownerName);
+          setSubscriberCount(response.data.subscriberCount);
+          setAllVideos(allVideoResponse.data);
+        }
 
-        setCurrentUser(currentUserResponse.data);
+        // Add to watch history if video is fetched
+        if (response.data.video) {
+          let history = JSON.parse(localStorage.getItem("watchHistory")) || [];
+          const exists = history.find((item) => item.id === response.data.video._id);
 
-        setVideo(response.data.video);
-        console.log(response.data.video);
-        
-        
-        setOwnerName(response.data.ownerName);
-        setSubscriberCount(response.data.subscriberCount);
-        
-        setAllVideos(allVideoResponse.data);
-
-        console.log(allVideoResponse.data);
-       
+          if (!exists) {
+            history.push({
+              id: response.data.video._id,
+              title: response.data.video.title,
+              thumbnail: response.data.video.thumbnail,
+              videoFile: response.data.video.videoFile,
+              description: response.data.video.description,
+              watchAt: new Date().toISOString(),
+            });
+            localStorage.setItem("watchHistory", JSON.stringify(history));
+          }
+        }
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchVideo();
 
-    if(video){
+    return () => {
+      isMounted = false; // Cleanup flag to prevent state updates
+    };
+  }, [id, accessToken]);
 
-      let history=JSON.parse(localStorage.getItem("watchHistory"))|| [];
-   
-      const exists= history.find((item)=> item.id === video._id);
-  
-      if(!exists){
-        history.push({
-          id:video._id,
-          title:video.title,
-          thumbnail:video.thumbnail,
-          videoFile:video.videoFile,
-          description:video.description,
-          watchAt:new Date().toISOString(),
-        })
-  
-        localStorage.setItem("watchHistory", JSON.stringify(history))
-      }
+  useEffect(() => {
+    if (!video || !currentUser) return;
 
-    }
-    
-  
-    
-  }, [id]);
-
-
-  useEffect(()=>{
-   
     const socketIo = io("http://localhost:4000", {
-      transports: ["websocket", "polling"], // Ensure fallback options
-      withCredentials: true, // Allow cross-origin credentials
+      transports: ["websocket", "polling"],
+      withCredentials: true,
     });
+
     setSocket(socketIo);
-   
-    if (socket && video && currentUser) {
-      socket.emit('join-video', { videoId: video._id, userId: currentUser._id });
 
-      // console.log(video?._id, " ", currentUser?._id, "socket", socketIo);
-    }
+    socketIo.emit("join-video", { videoId: video._id, userId: currentUser._id });
 
-    
+    return () => {
+      socketIo.disconnect(); // Clean up socket connection to prevent memory leaks
+    };
+  }, [video, currentUser]);
 
-   
-  },[video, currentUser])
-
-  //handling comments
-
-  
-
-  
-
-  if (loading) return <div>Loading......</div>;
+  if (loading) return <div>Loading...</div>;
   console.log(video.videoFile);
   // console.log(allVideos);
 

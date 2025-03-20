@@ -22,7 +22,7 @@ export default function Playlist() {
           "http://localhost:4000/playlist/api/fetchPlaylist",
           {
             headers: {
-              Authorization: `token ${accessToken}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         );
