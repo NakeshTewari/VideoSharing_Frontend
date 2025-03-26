@@ -12,7 +12,7 @@ A web application where users can upload, watch, and interact with videos in rea
 
 ## Images
 **SignUp**
-![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/signup.png?raw=true){500}
+<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/signup.png?raw=true" alt="Playlist" width="500">
 
 **HomePage**
 ![Upload Feature](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/home.png?raw=true)
