@@ -11,9 +11,21 @@ A web application where users can upload, watch, and interact with videos in rea
 ✅ Redis caching for faster content loading  
 
 ## Images
+**SignUp**
+![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/signup.png?raw=true){500}
+
+**HomePage**
+![Upload Feature](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/home.png?raw=true)
 
 **Upload_Video:**
 ![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/upload.png?raw=true)
+
+**Comment_Section**
+![Alt_Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/comments.png?raw=true)
+
+**Playlist**
+![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/playlist.png?raw=true)
+
 
 
 ## 🛠 Tech Stack  
