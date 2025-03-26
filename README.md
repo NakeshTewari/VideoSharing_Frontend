@@ -12,8 +12,8 @@ A web application where users can upload, watch, and interact with videos in rea
 
 ## Images
 
-**Upload:**
-![Alt Text](assets/image_name.png)
+**Upload_Video:**
+![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/upload.png?raw=true)
 
 
 ## 🛠 Tech Stack  
