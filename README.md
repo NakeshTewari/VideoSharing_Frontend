@@ -61,8 +61,23 @@ The project is built using Node.js, Express, MongoDB, React.js, and WebSockets, 
 ---
 
 ## ⚙️ Installation & Setup 
+ **Install Dependencies**
+ Run the following command to install the required dependencies:
  npm install
+
+**Set Up Environment Variables**
+Create a .env file in the root directory and add the following environment variables:
+
+**Start the Backend Server**
+nodemon index.js
+
+**Start the Frontend**
  npm start
+
+**Test the API Endpoints**
+POST http://localhost:5000/api/auth/register
+
+---
 
 ### 1️⃣ Clone the repository  
 ```sh
