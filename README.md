@@ -1,6 +1,8 @@
 # 📽️ Video Sharing Platform  
 
-A web application where users can upload, watch, and interact with videos in real time. Supports authentication, video streaming, and real-time comments.  
+The Video Sharing Platform is a full-stack web application that enables users to upload, watch, and interact with videos in real-time. It provides a seamless video streaming experience with optimized delivery and caching mechanisms. Users can create accounts, manage their videos, engage in real-time discussions through comments, and build personalized playlists.  
+
+The project is built using Node.js, Express, MongoDB, React.js, and WebSockets, integrating cloud-based solutions for storage and real-time features.
 
 ---
 
