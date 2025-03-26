@@ -2,6 +2,8 @@
 
 A web application where users can upload, watch, and interact with videos in real time. Supports authentication, video streaming, and real-time comments.  
 
+---
+
 ## 🚀 Features  
 ✅ Upload, and manage videos  
 ✅ Secure authentication (JWT)  
@@ -10,34 +12,62 @@ A web application where users can upload, watch, and interact with videos in rea
 ✅ Optimized video delivery via Amazon S3 + CDN  
 ✅ Redis caching for faster content loading  
 
-## Images
-**SignUp**
-<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/signup.png?raw=true" alt="Playlist" width="500">
+---
 
-**HomePage**
-![Upload Feature](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/home.png?raw=true)
+## 📸 Screenshots  
 
-**Upload_Video:**
-![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/upload.png?raw=true)
+### **SignUp Page**  
+<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/signup.png?raw=true" alt="SignUp Page" width="600">
 
-**Comment_Section**
-![Alt_Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/comments.png?raw=true)
+### **Home Page**  
+<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/home.png?raw=true" alt="Home Page" width="600">
 
-**Playlist**
-![Alt Text](https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/playlist.png?raw=true)
+### **Upload Video**  
+<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/upload.png?raw=true" alt="Upload Video" width="600">
 
+### **Comment Section**  
+<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/comments.png?raw=true" alt="Comment Section" width="600">
 
+### **Playlist**  
+<img src="https://github.com/NakeshTewari/VideoSharing_Frontend/blob/main/src/pictures/playlist.png?raw=true" alt="Playlist" width="600">
+
+---
 
 ## 🛠 Tech Stack  
-**Backend:** Node.js, Express, MongoDB, Socket.IO, JWT  
-**Frontend:** React.js  
-**Storage:** Cloudinary / Amazon S3  
-**Caching:** Redis  
-**Real-time:** WebSockets (Socket.IO)  
+| **Category**  | **Technologies** |
+|--------------|------------------|
+| **Backend**  | Node.js, Express, MongoDB, Socket.IO, JWT |
+| **Frontend** | React.js |
+| **Storage**  | Cloudinary  |
+| **Caching**  | LocalStorage |
+| **Real-time** | WebSockets (Socket.IO) |
 
-## ⚙️ Installation & Setup  
+---
+## 🛠 API Endpoints  
+| **Category**  | **Endpoints** | **Description** |
+|--------------|------------------|---------------|
+| **POST**  | /api/auth/register |  Register a new user |
+| **POST** | /api/auth/login | Login user |
+| **POST**  | /api/videos/upload  | Upload a video |
+| **GET**  | /api/videos/:id | Fetch video details |
+| **DELETE** | 	/api/videos/:id | Delete a video |
+| **POST** | 	/api/comments | 	Add a comment (real-time) |
+
+
+
+
+---
+
+## ⚙️ Installation & Setup 
+ npm install
+ npm start
 
 ### 1️⃣ Clone the repository  
 ```sh
-git clone https://github.com/NakeshTewari/VideoSharing_Platform.git
-cd VideoSharing_Platform
+git clone https://github.com/NakeshTewari/VideoSharing_Frontend.git
+```
+```sh
+git clone https://github.com/NakeshTewari/VideoSharing_Platform_Backend.git
+```
+
+
